@@ -4,7 +4,7 @@
   <% @dog.images.each do |image| %>
     <%= image_tag url_for(image), alt: "Photo of #{@dog.name}" %>
   <% end %>
-
+  <p><%= @dog.owner %></p>
   <p><%= @dog.description %></p>
 
   <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path %>
