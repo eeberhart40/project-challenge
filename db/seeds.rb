@@ -8,8 +8,8 @@
 User.delete_all
 Dog.delete_all
 
-dave = User.create!({name: "David Wood", email: "woody@gmail.com"})
-lynn = User.create!({name: "Aunt Lynn", email: "lynnHana@gmail.com"})
+dave = User.create!({name: "David Wood", email: "woody@gmail.com", password: "starwars"})
+lynn = User.create!({name: "Aunt Lynn", email: "lynnHana@gmail.com", password: "starwars"})
 
 dogs = [
   {
@@ -75,7 +75,7 @@ dogs = [
 
 
 dogs.each do |dog|
-  dog = Dog.find_or_create_by(name: dog[:name], description: dog[:description], user_id: dog[:user_id])
+  dog = Dog.find_or_create_by!(name: dog[:name], description: dog[:description], user_id: dog[:user_id])
   directory_name = File.join(Rails.root, 'db', 'seed', "#{dog[:name].downcase}", "*")
 
   Dir.glob(directory_name).each do |filename|
