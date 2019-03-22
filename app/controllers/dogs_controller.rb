@@ -1,10 +1,14 @@
 class DogsController < ApplicationController
   before_action :set_dog, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.paginate(page: params[:page], per_page: 5)
+      @dogs = Dog.paginate(page: params[:page], per_page: 5)
+  end
+
+  def trending
+    @dogs = Dog.joins("LEFT JOIN likes ON likes.dog_id = dogs.id AND likes.created_at >= datetime('now', '-1 HOUR')").group(:id).order("COUNT(likes.id) DESC").paginate(page: params[:page], per_page: 5)
   end
 
   # GET /dogs/1
@@ -63,6 +67,10 @@ class DogsController < ApplicationController
       format.html { redirect_to dogs_url, notice: 'Dog was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def trending
+      @dogs = Dog.joins("LEFT JOIN likes ON likes.dog_id = dogs.id AND likes.created_at >= datetime('now', '-1 HOUR')").group(:id).order("COUNT(likes.id) DESC").paginate(page: params[:page], per_page: 5)
   end
 
   private

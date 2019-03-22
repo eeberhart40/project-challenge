@@ -5,8 +5,11 @@
     <%= image_tag url_for(image), alt: "Photo of #{@dog.name}" %>
   <% end %>
   <p><%= @dog.description %></p>
+
+  <p><%= @dog.likes.count %> <%= (@dog.likes.count) == 1 ? 'Like' : 'Likes' %></p>
+  <%= button_to "Like", dog_likes_path(@dog), method: :post %>
   
-  <% if @dog.owner.id == current_user.id %>
+  <% if @dog.owner.id == current_user.id %> 
     <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path %>
     <br>
     <%= link_to "Delete #{@dog.name}'s Profile", dog_path, method: :delete, data: { confirm: 'Are you sure?' } %>

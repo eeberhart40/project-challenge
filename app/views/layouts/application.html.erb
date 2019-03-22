@@ -13,6 +13,7 @@
     <div id="layout">
       <header>
         <h1><%= link_to 'Dog Profile Demo', root_path %></h1>
+        <%= button_to 'See Trending Pooches', trending_path, method: :get %>
         <div class="actions">
           <% if current_user %>
             <%= link_to 'Add your dog', new_dog_path %>
