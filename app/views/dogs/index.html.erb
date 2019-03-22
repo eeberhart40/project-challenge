@@ -1,2 +1,9 @@
-<%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
+<% count = 0 %>
+<% @dogs.each do |dog| %>
+    <%= render partial: 'thumbnail', :locals => {:dog => dog} %>
+    <% count += 1 %>
+    <% if count % 2 == 0 %>
+        <%= image_tag ("ad.jpg")%>
+    <% end %>
+<% end %>
 <%= will_paginate @dogs %>
